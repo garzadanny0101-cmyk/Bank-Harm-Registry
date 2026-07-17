@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Private Admin Studio Prototype | Bank Harm Registry</title>
+  <meta name="description" content="Noindex prototype for reviewing safe receipt metadata, consent, evidence readiness, risk, and support eligibility.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#06111f">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="nav"><div class="wrap navin glass"><a class="brand" href="index.html">Bank Harm Registry</a><div class="links"><a href="index.html">Public Site</a><a href="/api/health">API Health</a></div></div></nav>
+<main id="main-content">
+  <section class="section section-compact"><div class="wrap notice prototype-banner"><strong>Admin Studio is a prototype until real authentication and database storage are added.</strong><br>Do not load real private reports into this browser-only prototype. Name, email, amount, story, evidence narrative, and documents remain protected.</div></section>
+  <!-- SECURITY TODO: Replace prototype mode with authenticated server-side sessions, role-based access, CSRF protection, audit logging, encrypted database storage, retention controls, and administrative authorization. -->
+  <section class="section"><div class="wrap">
+    <div class="admin-hero"><div><p class="eyebrow">Private Admin Studio</p><h1>Review consent and readiness before any connection.</h1><p class="lead">This prototype renders safe receipt metadata only. It does not authenticate users or retrieve private intake records.</p></div><div class="btns"><button class="btn secondary" id="exportJson" type="button">Export Safe JSON</button><button class="btn secondary" id="exportCsv" type="button">Export Safe CSV</button><button class="btn danger-button" id="clearReceipts" type="button">Clear Local Receipts</button></div></div>
+
+    <div class="admin-kpis" id="adminKpis"></div>
+    <div class="admin-sections" id="adminSections"></div>
+
+    <section class="glass panel admin-table-shell" aria-labelledby="intake-table-heading">
+      <div class="table-head"><div><p class="eyebrow">Intake Inbox</p><h2 id="intake-table-heading">Safe receipt metadata</h2></div><span class="tag" id="receiptCount">0 receipts</span></div>
+      <div class="table-scroll"><table class="table admin-table"><thead><tr>
+        <th>Report ID</th><th>Submitted</th><th>Name/Alias</th><th>Email</th><th>Institution</th><th>Category</th><th>State</th><th>Approx. Amount</th><th>Evidence</th><th>Remedy</th><th>Support</th><th>Consent</th><th>Risk</th><th>Status</th>
+      </tr></thead><tbody id="adminRows"></tbody></table></div>
+    </section>
+  </div></section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><p>Internal prototype. Educational platform operations only—not legal advice. No private data may be exposed publicly.</p></div></footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="admin.js" defer></script>
+</body>
+</html>
