@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard.html
+Disallow: /war-room.html
+
+Sitemap: https://bankharmregistry.org/sitemap.xml

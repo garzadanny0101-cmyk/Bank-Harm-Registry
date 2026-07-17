@@ -1,0 +1,14 @@
+{
+  "name": "bank-harm-registry-gold-standard",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Vercel-ready privacy-first consumer banking evidence, regulator-routing, and consent-based support platform.",
+  "scripts": {
+    "test": "node tests/smoke-test.js && node tests/static-audit.js",
+    "test:api": "node tests/smoke-test.js",
+    "test:static": "node tests/static-audit.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

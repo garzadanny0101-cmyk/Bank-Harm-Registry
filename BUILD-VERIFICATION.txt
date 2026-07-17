@@ -1,0 +1,40 @@
+BANK HARM REGISTRY — GOLD STANDARD v3
+BUILD VERIFICATION
+Date: 2026-07-16
+
+PASS 1 — ARCHITECTURE / COMPLETENESS: PASS
+- 24 HTML pages present
+- Vercel API routes present: submit-report, health, public-config
+- Required policies, manifest, robots, sitemap, 404, security policy, and deployment docs present
+- Relative links/assets checked across root, guides, and bank pages
+- Private delivery is required before API reports success
+
+PASS 2 — CODE / SECURITY / PRIVACY: PASS
+- Node syntax checks passed for script.js and all API routes
+- API smoke tests passed
+- Static site audit passed
+- Origin, content-type, body-size, honeypot, consent, email, and sensitive-number validation included
+- Optional Turnstile requires both client and server keys
+- Private GitHub handoff requires explicit private-repo confirmation
+- Browser stores receipt metadata only after successful delivery; no raw story/email storage
+- Security headers configured in vercel.json
+
+PASS 3 — UX / SEO / CONSUMER SAFETY: PASS
+- Unique page titles, descriptions, and canonical URLs
+- Exactly one H1 per page
+- Image alt text and form labels checked
+- Skip links, focus styles, live form status, and responsive layouts included
+- CFPB 2025 context includes primary-source link and context disclaimer
+- Dashboard and War Room are noindex prototypes with warnings
+- Donation anti-influence and volunteer/expert conflict guardrails included
+- HTML pages returned HTTP 200 in local static-server check
+- Index rendered successfully in a print-layout sanity check
+
+EXTERNAL GO-LIVE ITEMS NOT TESTABLE LOCALLY
+- Live Vercel deployment and production branch selection
+- Real Resend/private-GitHub delivery credentials
+- Real Turnstile keys
+- Attorney/privacy/fundraising review
+- Payment-provider links
+
+FINAL LOCAL RESULT: CONFIRMED GOLD STANDARD PACKAGE
