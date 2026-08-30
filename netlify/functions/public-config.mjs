@@ -1,0 +1,1 @@
+export default async ()=>Response.json({turnstileSiteKey:process.env.TURNSTILE_SITE_KEY||'',turnstileRequired:process.env.TURNSTILE_REQUIRED==='true'},{headers:{'Cache-Control':'public, max-age=60'}}); export const config={path:'/api/public-config'};

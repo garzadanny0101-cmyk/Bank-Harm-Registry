@@ -1,12 +1,11 @@
 {
-  "name": "bank-harm-registry-gold-standard",
-  "version": "3.0.0",
+  "name": "bank-harm-registry-premium-2026",
+  "version": "4.0.0",
   "private": true,
-  "description": "Vercel-ready privacy-first consumer banking evidence, regulator-routing, and consent-based support platform.",
+  "description": "Dual-host Vercel/Netlify Bank Harm Registry premium public-record and private-intake platform.",
   "scripts": {
-    "test": "node tests/smoke-test.js && node tests/static-audit.js",
-    "test:api": "node tests/smoke-test.js",
-    "test:static": "node tests/static-audit.js"
+    "test": "node tests/smoke-test.cjs && node tests/static-audit.cjs && node tests/premium-ui-test.cjs && node tests/backend-test.cjs && node tests/netlify-backend-test.mjs",
+    "build:netlify": "node scripts/build-netlify.mjs"
   },
   "engines": {
     "node": ">=18"
