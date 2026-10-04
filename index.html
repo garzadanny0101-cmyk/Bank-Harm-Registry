@@ -2,12 +2,16 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Bank Harm Registry | Consumer Banking Intelligence</title>
 <meta name="description" content="Search financial institutions, review public complaint context, organize evidence, and find the right regulator route.">
-<link rel="canonical" href="https://bankharmregistry.org/"><link rel="stylesheet" href="styles.css">
-<link rel="icon" href="assets/logo-premium.svg" type="image/svg+xml">
+<link rel="canonical" href="https://bankharmregistry.org/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="assets/brand-mark.svg" type="image/svg+xml">
 </head><body>
 <a class="skip-link" href="#main">Skip to main content</a>
 <nav class="nav"><div class="wrap navin">
-<a class="brand" href="index.html"><img src="assets/logo-premium.svg" alt=""><span>Bank Harm Registry</span></a>
+<a class="brand" href="index.html" aria-label="Bank Harm Registry home"><img src="assets/brand-mark.svg" alt=""><span><strong>Bank Harm Registry</strong><small>Consumer evidence intelligence</small></span></a>
 <div class="links"><a href="registry.html">Intelligence</a><a href="#submit">Build your case</a><a href="#how">How it works</a><a href="donate.html">Support</a></div>
 <a class="navcta" href="#submit">Submit private report</a></div></nav>
 <main id="main">
@@ -15,14 +19,26 @@
 <div class="hero-copy"><p class="eyebrow">Consumer banking intelligence</p>
 <h1>Understand the institution. Organize your evidence. Know your next move.</h1>
 <p class="lead">Search a financial company, review public complaint and enforcement context, then build a private evidence packet before you escalate.</p>
-<form id="institutionSearchForm" class="search"><input id="institutionSearch" type="search" placeholder="Search a bank, lender, credit bureau, or financial company" aria-label="Search institution"><button>Search institution</button></form>
+<form id="institutionSearchForm" class="search"><input id="institutionSearch" type="search" placeholder="Search a bank, lender, credit bureau, or financial company" aria-label="Search institution"><button>Search public records</button></form>
 <div class="hero-links"><a href="#submit">Build my evidence packet</a><span>•</span><a href="registry.html">Browse institution intelligence</a></div>
-<div class="trust"><span>Private by default</span><span>Consent before sharing</span><span>Official sources kept separate from consumer reports</span></div>
+<div class="trust"><span>Private by default</span><span>Consent before sharing</span><span>Official records clearly separated from consumer reports</span></div>
 </div>
-<section class="globe-shell" aria-label="Connected public sources">
-<div class="globe-top"><span><i></i> Connected public sources</span><b>LIVE MAP</b></div>
-<canvas id="bhrGlobe" aria-hidden="true"></canvas>
-<div class="globe-bottom"><strong>Institution intelligence</strong><span>CFPB · OCC · FDIC · Federal Reserve · FTC · Courts</span></div>
+<section class="globe-shell" data-globe-stage aria-label="Interactive consumer banking intelligence globe">
+<div class="globe-top"><span><i></i> Public-source intelligence</span><b>DRAG TO EXPLORE</b></div>
+<div class="globe-stage">
+  <div class="circuit-field" aria-hidden="true"></div>
+  <canvas id="bhrGlobe" width="760" height="760" aria-label="Interactive network globe. Drag horizontally or vertically to rotate."></canvas>
+  <span class="globe-label label-complaints">COMPLAINTS</span>
+  <span class="globe-label label-regulators">REGULATORS</span>
+  <span class="globe-label label-actions">PUBLIC ACTIONS</span>
+  <span class="globe-label label-evidence">EVIDENCE</span>
+  <span class="globe-label label-review">REVIEW</span>
+</div>
+<div class="globe-bottom">
+  <span><i></i>CFPB complaint context</span>
+  <span><i></i>Regulator routing</span>
+  <span><i></i>Evidence-first review</span>
+</div>
 </section></div></header>
 
 <section class="sourcebar"><div class="wrap sourcegrid"><div><b>CFPB</b><span>Complaint context</span></div><div><b>OCC / FDIC</b><span>Bank oversight</span></div><div><b>Federal Reserve</b><span>Enforcement actions</span></div><div><b>FTC / DOJ</b><span>Consumer protection</span></div></div></section>
@@ -58,7 +74,7 @@
 <aside class="panel"><p class="eyebrow">Your device</p><h2>Submission receipts</h2><div id="localReports"></div><p class="muted small">Receipts contain report IDs and non-sensitive metadata only.</p>
 <div class="route"><p class="eyebrow">Regulator route</p><label>Issue<select data-issues id="wizardIssue"></select></label><p id="wizardOutput" class="muted"></p></div></aside>
 </div></section></main>
-<footer><div class="wrap foot"><div><a class="brand" href="index.html"><img src="assets/logo-premium.svg" alt=""><span>Bank Harm Registry</span></a><p>Consumer evidence and public-source intelligence tools. Educational information only, not legal advice.</p></div><div><b>Platform</b><a href="registry.html">Institution intelligence</a><a href="#submit">Build evidence</a></div><div><b>Resources</b><a href="resources.html">Official resources</a><a href="volunteer-expert-support.html">Volunteer support</a></div><div><b>Trust</b><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div></div></footer>
+<footer><div class="wrap foot"><div><a class="brand" href="index.html" aria-label="Bank Harm Registry home"><img src="assets/brand-mark.svg" alt=""><span><strong>Bank Harm Registry</strong><small>Consumer evidence intelligence</small></span></a><p>Consumer evidence and public-source intelligence tools. Educational information only, not legal advice.</p></div><div><b>Platform</b><a href="registry.html">Institution intelligence</a><a href="#submit">Build evidence</a></div><div><b>Resources</b><a href="resources.html">Official resources</a><a href="volunteer-expert-support.html">Volunteer support</a></div><div><b>Trust</b><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div></div></footer>
 <div id="toast" class="toast" aria-live="polite"></div>
 <script defer src="site-config.js"></script><script defer src="script.js"></script><script defer src="globe.js"></script>
 </body></html>
