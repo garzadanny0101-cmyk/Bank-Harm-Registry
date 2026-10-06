@@ -1,26 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Bank Harm Registry | Bank Complaint Intelligence & Evidence Tools</title>
-  <meta name="description" content="Search official banking records, review complaint and enforcement context, organize evidence, and find the right regulator route without exposing private report details.">
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-  <link rel="canonical" href="https://bankharmregistry.org/">
-  <meta property="og:title" content="Bank Harm Registry | Bank Complaint Intelligence & Evidence Tools">
-  <meta property="og:description" content="Search official banking records, organize evidence, and find the right regulator route with privacy-first consumer tools.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://bankharmregistry.org/">
-  <meta property="og:image" content="https://bankharmregistry.org/assets/og-card.svg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#06090f">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="stylesheet" href="styles.css">
-  <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Bank Harm Registry | Bank Complaint Help, Evidence Tools &amp; CFPB Data</title>
+<meta content="Search CFPB complaint data and official banking records, organize evidence, find regulator routes, and submit a private consumer report." name="description"/>
+<meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
+<link href="https://bankharmregistry.org/" rel="canonical"/>
+<meta content="Bank Harm Registry | Bank Complaint Help, Evidence Tools &amp; CFPB Data" property="og:title"/>
+<meta content="Search CFPB complaint data and official banking records, organize evidence, and find the right regulator route." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://bankharmregistry.org/" property="og:url"/>
+<meta content="https://bankharmregistry.org/assets/og-card.svg" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="#06090f" name="theme-color"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="site.webmanifest" rel="manifest"/>
+<link href="styles.css" rel="stylesheet"/>
+<script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"WebSite",
@@ -37,294 +38,349 @@
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
-
-<nav class="nav" aria-label="Primary">
-  <div class="wrap navin glass">
-    <a class="brand" href="index.html" aria-label="Bank Harm Registry home">
-      <img src="assets/logo.svg" width="42" height="42" alt="Bank Harm Registry logo">
-      <span class="brand-copy">
-        <strong>Bank Harm Registry</strong>
-        <small>Consumer evidence intelligence</small>
-      </span>
-    </a>
-    <div class="links nav-links">
-      <a href="#intelligence">Intelligence</a>
-      <a href="resources.html">Resources</a>
-      <a href="#how">How it works</a>
-      <a href="donate.html">Support</a>
-    </div>
-    <a class="btn nav-action" href="#submit">Submit report</a>
-  </div>
+<nav aria-label="Primary" class="nav">
+<div class="wrap navin glass">
+<a aria-label="Bank Harm Registry home" class="brand" href="index.html">
+<img alt="Bank Harm Registry logo" height="42" src="assets/logo.svg" width="42"/>
+<span class="brand-copy">
+<strong>Bank Harm Registry</strong>
+<small>Consumer evidence intelligence</small>
+</span>
+</a>
+<div class="links nav-links">
+<a href="#intelligence">Research</a>
+<a href="resources.html">Resources</a>
+<a href="#how">How it works</a>
+<a href="donate.html">Support</a>
+</div>
+<a class="btn nav-action" href="#submit">Submit report</a>
+</div>
 </nav>
-
 <main id="main-content">
-  <header class="hero">
-    <div class="hero-orb hero-orb-a" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb-b" aria-hidden="true"></div>
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Consumer banking intelligence</p>
-        <h1>Find the record. Build the evidence. Know the next move.</h1>
-        <p class="lead">Search public regulator, enforcement, court, and news sources without learning advanced search operators. Then organize your private evidence before you escalate.</p>
-
-        <form class="public-search" id="publicRecordSearch" role="search">
-          <label class="sr-only" for="publicSearchInput">Search a bank or financial company</label>
-          <div class="public-search-row">
-            <input id="publicSearchInput" name="q" type="search" autocomplete="off" placeholder="Search Chase, Bank of America, Capital One...">
-            <button class="btn primary search-submit" type="submit">Search public records</button>
-          </div>
-          <p class="search-helper">Focused search across CFPB, OCC, FDIC, Federal Reserve, FTC, SEC, DOJ and court/news sources.</p>
-
-          <details class="search-advanced">
-            <summary>Choose sources</summary>
-            <div class="source-options" role="group" aria-label="Search sources">
-              <label><input type="checkbox" name="sources" value="consumerfinance.gov" checked> CFPB</label>
-              <label><input type="checkbox" name="sources" value="occ.gov" checked> OCC</label>
-              <label><input type="checkbox" name="sources" value="fdic.gov" checked> FDIC</label>
-              <label><input type="checkbox" name="sources" value="federalreserve.gov" checked> Federal Reserve</label>
-              <label><input type="checkbox" name="sources" value="ftc.gov"> FTC</label>
-              <label><input type="checkbox" name="sources" value="sec.gov"> SEC</label>
-              <label><input type="checkbox" name="sources" value="justice.gov"> DOJ</label>
-              <label><input type="checkbox" name="sources" value="courtlistener.com"> Courts</label>
-              <label><input type="checkbox" name="sources" value="reuters.com"> Reuters</label>
-              <label><input type="checkbox" name="sources" value="apnews.com"> AP</label>
-            </div>
-          </details>
-        </form>
-
-        <div class="hero-actions">
-          <a class="text-action" href="#submit">Build my evidence packet</a>
-          <a class="text-action" href="resources.html">Open official resource center</a>
-        </div>
-
-        <div class="trust-row" aria-label="Privacy safeguards">
-          <span>Private by default</span>
-          <span>Consent before sharing</span>
-          <span>Official records separated from consumer reports</span>
-        </div>
-      </div>
-
-      <section class="globe-shell glass" data-globe-stage aria-label="Interactive public-source intelligence globe">
-        <div class="globe-heading">
-          <div>
-            <span class="status-dot" aria-hidden="true"></span>
-            <span>Connected public sources</span>
-          </div>
-          <span>Drag to rotate</span>
-        </div>
-        <div class="globe-stage">
-          <canvas id="bhrGlobe" width="760" height="760" aria-label="Interactive globe. Drag horizontally or vertically to rotate."></canvas>
-        </div>
-        <div class="globe-legend" aria-label="Source categories">
-          <span>Complaint data</span>
-          <span>Regulator actions</span>
-          <span>Public records</span>
-        </div>
-      </section>
-    </div>
-  </header>
-
-  <section class="signal-strip" id="intelligence" aria-label="Public intelligence sources">
-    <div class="wrap signal-grid">
-      <article><strong>CFPB</strong><span>Complaint context</span></article>
-      <article><strong>OCC + FDIC</strong><span>Bank oversight</span></article>
-      <article><strong>Federal Reserve</strong><span>Enforcement actions</span></article>
-      <article><strong>FTC + DOJ</strong><span>Consumer protection</span></article>
-    </div>
-  </section>
-
-  <section class="section" id="how">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">A clearer process</p>
-        <h2>Turn a banking problem into an organized record.</h2>
-        <p class="section-copy">The site keeps public-source research, your private evidence, and any later support or declaration permissions in separate lanes.</p>
-      </div>
-      <div class="process-grid">
-        <article class="process-card">
-          <span class="step-number">01</span>
-          <h3>Search the institution</h3>
-          <p>Find complaint context, regulator records, public actions, and relevant official sources.</p>
-        </article>
-        <article class="process-card">
-          <span class="step-number">02</span>
-          <h3>Organize the facts</h3>
-          <p>Build a timeline, list your evidence, state the harm, and define the remedy you want.</p>
-        </article>
-        <article class="process-card">
-          <span class="step-number">03</span>
-          <h3>Choose your next step</h3>
-          <p>Find the likely regulator route and decide whether you want private support or declaration contact later.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-soft" aria-labelledby="context-title">
-    <div class="wrap context-panel glass">
-      <div class="context-copy">
-        <p class="eyebrow">National complaint context</p>
-        <h2 id="context-title">Public data can show patterns. It does not prove an individual claim.</h2>
-        <p>The CFPB reported receiving more than 6.6 million complaints in 2025 and sending more than 5.9 million to companies. Bank Harm Registry uses those figures as public context, not as proof of a consumer's allegation.</p>
-        <a class="text-action" href="https://www.consumerfinance.gov/data-research/consumer-complaints/" target="_blank" rel="noopener noreferrer">Explore CFPB complaint data</a>
-      </div>
-      <div class="stat-grid">
-        <article class="stat"><strong>6.6M+</strong><span>complaints received in 2025</span></article>
-        <article class="stat"><strong>5.9M+</strong><span>sent to companies</span></article>
-        <article class="stat"><strong>97%</strong><span>routed in one day or less</span></article>
-        <article class="stat"><strong>99%+</strong><span>timely company response benchmark</span></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="submit">
-    <div class="wrap intake-grid">
-      <div class="glass panel intake-panel">
-        <div class="section-head compact">
-          <p class="eyebrow">Private evidence intake</p>
-          <h2>Build your report.</h2>
-          <p class="section-copy">Facts first. Do not include Social Security numbers, full account or card numbers, passwords, or private credentials.</p>
-        </div>
-
-        <form class="form report-form" data-bhr-form data-type="consumer-report">
-          <label aria-hidden="true" class="hp-field">Leave this field empty<input autocomplete="off" name="website" tabindex="-1"></label>
-
-          <div class="row">
-            <label>Name or alias<input name="name" required></label>
-            <label>Email<input name="email" type="email" required></label>
-          </div>
-
-          <div class="row">
-            <label>Institution<select data-banks name="institution" required></select></label>
-            <label>Issue<select data-issues name="issue" required></select></label>
-          </div>
-
-          <div class="row">
-            <label>State<input name="state" placeholder="FL"></label>
-            <label>Approx. amount<input name="amount" placeholder="$500 or unknown"></label>
-          </div>
-
-          <label>Timeline<input name="timeline" placeholder="Date opened, issue began, company contacted"></label>
-          <label>Evidence you have<textarea name="evidence" placeholder="Statements, notices, screenshots, complaint IDs, letters, credit reports..."></textarea></label>
-          <label>What happened<textarea name="story" placeholder="Facts only. Do not include SSNs, full account numbers, card numbers, passwords, or private credentials." required></textarea></label>
-          <label>Requested remedy<select data-remedies name="remedy"></select></label>
-
-          <label class="check consent-primary"><input name="priorContact" type="checkbox"><span>I contacted the company first or tried to resolve it.</span></label>
-
-          <div class="consent-block">
-            <p class="consent-title">Required permissions</p>
-            <label class="check"><input name="consentContact" type="checkbox" required><span>I consent to being contacted about this report.</span></label>
-            <label class="check"><input name="accuracy" type="checkbox" required><span>I confirm this is my honest understanding and I removed sensitive private data.</span></label>
-
-            <details class="optional-consents">
-              <summary>Optional declaration and contact permissions</summary>
-              <div class="optional-consent-list">
-                <label class="check"><input name="consentDeclaration" type="checkbox"><span>I may be willing to support similar consumers with a factual declaration after separate approval.</span></label>
-                <label class="check"><input name="consentPublic" type="checkbox"><span>I consent to a reviewed and redacted public summary being considered later.</span></label>
-                <label class="check"><input name="consentAttorney" type="checkbox"><span>I may be willing to be contacted by a licensed attorney after separate approval.</span></label>
-                <label class="check"><input name="consentMedia" type="checkbox"><span>I may be willing to be contacted by a journalist after separate approval.</span></label>
-              </div>
-            </details>
-          </div>
-
-          <div class="turnstile-slot" data-turnstile-slot></div>
-          <button class="btn primary submit-report" type="submit">Submit private report</button>
-          <p class="form-status muted small" data-form-status aria-live="polite" role="status">Your story is not stored on this device. Only a receipt is saved after successful private delivery.</p>
-          <p class="muted small">By submitting, you acknowledge the <a class="inline-link" href="privacy.html">privacy process</a> and understand this is an educational intake tool, not legal advice.</p>
-          <input name="turnstileToken" type="hidden" value="">
-        </form>
-      </div>
-
-      <aside class="intake-side">
-        <section class="glass panel side-card">
-          <p class="eyebrow">Regulator route</p>
-          <h3>Find the likely starting point.</h3>
-          <label>Issue<select data-issues id="wizardIssue"></select></label>
-          <p class="route-output" id="wizardOutput">Choose an issue to see a likely regulator route.</p>
-        </section>
-
-        <section class="glass panel side-card">
-          <p class="eyebrow">Declaration support</p>
-          <h3>Your choice stays separate.</h3>
-          <p class="muted">Submitting a report does not automatically make it public and does not enroll you in media, attorney, support, or declaration contact. Those permissions are optional and separately recorded.</p>
-        </section>
-
-        <section class="glass panel side-card">
-          <p class="eyebrow">Submission receipts</p>
-          <h3>Safe metadata on this device.</h3>
-          <div id="localReports"></div>
-          <p class="muted small">Receipts contain report IDs and non-sensitive metadata only, not your story, email, or documents.</p>
-        </section>
-      </aside>
-    </div>
-  </section>
-
-  <section class="section resource-callout">
-    <div class="wrap glass resource-callout-inner">
-      <div>
-        <p class="eyebrow">Credit card agreements</p>
-        <h2>Need the card agreement behind your account?</h2>
-        <p>Search the CFPB database of issuer-submitted credit card agreements, including current and archived collections.</p>
-      </div>
-      <a class="btn secondary strong-button" href="https://www.consumerfinance.gov/credit-cards/agreements/" target="_blank" rel="noopener noreferrer">Search CFPB agreements</a>
-    </div>
-  </section>
+<header class="hero">
+<div aria-hidden="true" class="hero-orb hero-orb-a"></div>
+<div aria-hidden="true" class="hero-orb hero-orb-b"></div>
+<div class="wrap hero-grid">
+<div class="hero-copy">
+<p class="eyebrow">Bank complaint help and evidence tools</p>
+<h1>Find the record. Build the evidence. Know the next move.</h1>
+<p class="lead">Search public regulator, enforcement, court, and news sources without learning advanced search operators. Then organize your private evidence before you escalate.</p>
+<form class="public-search" id="publicRecordSearch" role="search">
+<label class="sr-only" for="publicSearchInput">Search a bank or financial company</label>
+<div class="public-search-row">
+<input autocomplete="off" id="publicSearchInput" name="q" placeholder="Search Chase, Bank of America, Capital One..." type="search"/>
+<button class="btn primary search-submit" type="submit">Search public records</button>
+</div>
+<p class="search-helper">Focused search across CFPB, OCC, FDIC, Federal Reserve, FTC, SEC, DOJ and court/news sources.</p>
+<details class="search-advanced">
+<summary>Choose sources</summary>
+<div aria-label="Search sources" class="source-options" role="group">
+<label><input checked="" name="sources" type="checkbox" value="consumerfinance.gov"/> CFPB</label>
+<label><input checked="" name="sources" type="checkbox" value="occ.gov"/> OCC</label>
+<label><input checked="" name="sources" type="checkbox" value="fdic.gov"/> FDIC</label>
+<label><input checked="" name="sources" type="checkbox" value="federalreserve.gov"/> Federal Reserve</label>
+<label><input name="sources" type="checkbox" value="ftc.gov"/> FTC</label>
+<label><input name="sources" type="checkbox" value="sec.gov"/> SEC</label>
+<label><input name="sources" type="checkbox" value="justice.gov"/> DOJ</label>
+<label><input name="sources" type="checkbox" value="courtlistener.com"/> Courts</label>
+<label><input name="sources" type="checkbox" value="reuters.com"/> Reuters</label>
+<label><input name="sources" type="checkbox" value="apnews.com"/> AP</label>
+</div>
+</details>
+</form>
+<div class="hero-actions">
+<a class="text-action" href="#submit">Build my evidence packet</a>
+<a class="text-action" href="resources.html">Open official resource center</a>
+</div>
+<div aria-label="Privacy safeguards" class="trust-row">
+<span>Private by default</span>
+<span>Consent before sharing</span>
+<span>Official records separated from consumer reports</span>
+</div>
+</div>
+<section aria-label="Interactive public-source network globe" class="globe-shell atlas-globe" data-globe-stage="">
+<div class="globe-heading">
+<div>
+<span aria-hidden="true" class="status-dot"></span>
+<span>Public-source network</span>
+</div>
+<span>Auto-rotates east-west · drag to explore</span>
+</div>
+<div class="globe-stage">
+<canvas aria-label="Interactive dotted globe. It rotates left to right automatically. Drag to explore other angles." height="760" id="bhrGlobe" width="760"></canvas>
+</div>
+<div aria-label="Network categories" class="globe-legend">
+<span>Complaint data</span>
+<span>Regulator records</span>
+<span>Courts + enforcement</span>
+</div>
+</section>
+</div>
+</header>
+<section aria-label="Public intelligence sources" class="signal-strip" id="intelligence">
+<div class="wrap signal-grid">
+<article><strong>CFPB</strong><span>Complaint context</span></article>
+<article><strong>OCC + FDIC</strong><span>Bank oversight</span></article>
+<article><strong>Federal Reserve</strong><span>Enforcement actions</span></article>
+<article><strong>FTC + DOJ</strong><span>Consumer protection</span></article>
+</div>
+</section>
+<section class="section complaint-section" id="consumer-signals">
+<div class="wrap complaint-layout">
+<div class="complaint-copy">
+<p class="eyebrow">Recent CFPB complaints</p>
+<h2>What consumers are reporting to the CFPB.</h2>
+<p class="section-copy">This live feed shows published CFPB complaint metadata such as company, product, issue, state, date, and company response. A complaint is a consumer report, not a verified finding.</p>
+<a class="text-action" href="https://www.consumerfinance.gov/data-research/consumer-complaints/" rel="noopener noreferrer" target="_blank">Open the CFPB database</a>
+</div>
+<div aria-label="Recent CFPB complaint metadata" class="complaint-marquee-shell" data-complaint-marquee="">
+<div class="complaint-perspective">
+<div class="complaint-lane" data-lane="0"></div>
+<div class="complaint-lane complaint-lane-reverse" data-lane="1"></div>
+<div class="complaint-lane" data-lane="2"></div>
+</div>
+<div aria-hidden="true" class="complaint-fade complaint-fade-top"></div>
+<div aria-hidden="true" class="complaint-fade complaint-fade-bottom"></div>
+</div>
+<p class="complaint-note">The CFPB removed narrative text from the current public database in September 2026. Bank Harm Registry does not invent or reconstruct those stories.</p>
+</div>
+</section><section class="section cfpb-explorer" id="cfpb-explorer">
+<div class="wrap">
+<div class="section-head explorer-head">
+<div>
+<p class="eyebrow">Live CFPB data</p>
+<h2>Search published CFPB complaints.</h2>
+<p class="section-copy">Start with the company. Add product, issue, state, or date only when you need a narrower result.</p>
+</div>
+<div class="explorer-source-note">
+<span aria-hidden="true" class="status-dot"></span>
+<span>Public CFPB API. No API key.</span>
+</div>
+</div>
+<div class="glass cfpb-console">
+<form class="cfpb-filter-form" id="cfpbFilterForm">
+<div class="cfpb-filter-primary">
+<label>
+<span>Company</span>
+<input autocomplete="organization" id="cfpbCompany" name="company" placeholder="Chase, Capital One, Wells Fargo..." type="search"/>
+</label>
+<label>
+<span>Product</span>
+<input id="cfpbProduct" name="product" placeholder="Credit card, checking, mortgage..." type="text"/>
+</label>
+<button class="btn primary" type="submit">Search CFPB data</button>
+</div>
+<details class="cfpb-advanced">
+<summary>More filters</summary>
+<div class="cfpb-filter-advanced-grid">
+<label>
+<span>Issue</span>
+<input id="cfpbIssue" name="issue" placeholder="Managing an account..." type="text"/>
+</label>
+<label>
+<span>State</span>
+<input id="cfpbState" maxlength="2" name="state" placeholder="FL" type="text"/>
+</label>
+<label>
+<span>From</span>
+<input id="cfpbDateMin" name="dateMin" type="date"/>
+</label>
+<label>
+<span>To</span>
+<input id="cfpbDateMax" name="dateMax" type="date"/>
+</label>
+</div>
+</details>
+</form>
+<div aria-live="polite" class="cfpb-result-summary">
+<div>
+<span class="cfpb-summary-label">Matching published complaints</span>
+<strong id="cfpbTotal">Loading...</strong>
+</div>
+<div>
+<span class="cfpb-summary-label">Latest CFPB record</span>
+<strong id="cfpbUpdated">Checking...</strong>
+</div>
+</div>
+<div aria-live="polite" class="cfpb-results" id="cfpbResults">
+<p class="muted">Loading recent public records...</p>
+</div>
+<p class="cfpb-disclaimer">Complaint counts are not a count of proven harm and are not a representative sample of every customer's experience.</p>
+</div>
+</div>
+</section>
+<section class="section" id="how">
+<div class="wrap">
+<div class="section-head">
+<p class="eyebrow">A clearer process</p>
+<h2>Turn a banking problem into an organized record.</h2>
+<p class="section-copy">The site keeps public-source research, your private evidence, and any later support or declaration permissions in separate lanes.</p>
+</div>
+<div class="process-grid">
+<article class="process-card">
+<span class="step-number">01</span>
+<h3>Search the institution</h3>
+<p>Find complaint context, regulator records, public actions, and relevant official sources.</p>
+</article>
+<article class="process-card">
+<span class="step-number">02</span>
+<h3>Organize the facts</h3>
+<p>Build a timeline, list your evidence, state the harm, and define the remedy you want.</p>
+</article>
+<article class="process-card">
+<span class="step-number">03</span>
+<h3>Choose your next step</h3>
+<p>Find the likely regulator route and decide whether you want private support or declaration contact later.</p>
+</article>
+</div>
+</div>
+</section>
+<section aria-labelledby="context-title" class="section section-soft">
+<div class="wrap context-panel glass">
+<div class="context-copy">
+<p class="eyebrow">National complaint context</p>
+<h2 id="context-title">Public data can show patterns. It does not prove an individual claim.</h2>
+<p>The CFPB reported receiving more than 6.6 million complaints in 2025 and sending more than 5.9 million to companies. Bank Harm Registry uses those figures as public context, not as proof of a consumer's allegation.</p>
+<a class="text-action" href="https://www.consumerfinance.gov/data-research/consumer-complaints/" rel="noopener noreferrer" target="_blank">Explore CFPB complaint data</a>
+</div>
+<div class="stat-grid">
+<article class="stat"><strong>6.6M+</strong><span>complaints received in 2025</span></article>
+<article class="stat"><strong>5.9M+</strong><span>sent to companies</span></article>
+<article class="stat"><strong>97%</strong><span>routed in one day or less</span></article>
+<article class="stat"><strong>99%+</strong><span>timely company response benchmark</span></article>
+</div>
+</div>
+</section>
+<section class="section" id="submit">
+<div class="wrap intake-grid">
+<div class="glass panel intake-panel">
+<div class="section-head compact">
+<p class="eyebrow">Private evidence intake</p>
+<h2>Build your report.</h2>
+<p class="section-copy">Facts first. Do not include Social Security numbers, full account or card numbers, passwords, or private credentials.</p>
+</div>
+<form class="form report-form" data-bhr-form="" data-type="consumer-report">
+<label aria-hidden="true" class="hp-field">Leave this field empty<input autocomplete="off" name="website" tabindex="-1"/></label>
+<div class="row">
+<label>Name or alias<input name="name" required=""/></label>
+<label>Email<input name="email" required="" type="email"/></label>
+</div>
+<div class="row">
+<label>Institution<select data-banks="" name="institution" required=""></select></label>
+<label>Issue<select data-issues="" name="issue" required=""></select></label>
+</div>
+<div class="row">
+<label>State<input name="state" placeholder="FL"/></label>
+<label>Approx. amount<input name="amount" placeholder="$500 or unknown"/></label>
+</div>
+<label>Timeline<input name="timeline" placeholder="Date opened, issue began, company contacted"/></label>
+<label>Evidence you have<textarea name="evidence" placeholder="Statements, notices, screenshots, complaint IDs, letters, credit reports..."></textarea></label>
+<label>What happened<textarea name="story" placeholder="Facts only. Do not include SSNs, full account numbers, card numbers, passwords, or private credentials." required=""></textarea></label>
+<label>Requested remedy<select data-remedies="" name="remedy"></select></label>
+<label class="check consent-primary"><input name="priorContact" type="checkbox"/><span>I contacted the company first or tried to resolve it.</span></label>
+<div class="consent-block">
+<p class="consent-title">Required permissions</p>
+<label class="check"><input name="consentContact" required="" type="checkbox"/><span>I consent to being contacted about this report.</span></label>
+<label class="check"><input name="accuracy" required="" type="checkbox"/><span>I confirm this is my honest understanding and I removed sensitive private data.</span></label>
+<details class="optional-consents">
+<summary>Optional declaration and contact permissions</summary>
+<div class="optional-consent-list">
+<label class="check"><input name="consentDeclaration" type="checkbox"/><span>I may be willing to support similar consumers with a factual declaration after separate approval.</span></label>
+<label class="check"><input name="consentPublic" type="checkbox"/><span>I consent to a reviewed and redacted public summary being considered later.</span></label>
+<label class="check"><input name="consentAttorney" type="checkbox"/><span>I may be willing to be contacted by a licensed attorney after separate approval.</span></label>
+<label class="check"><input name="consentMedia" type="checkbox"/><span>I may be willing to be contacted by a journalist after separate approval.</span></label>
+</div>
+</details>
+</div>
+<div class="turnstile-slot" data-turnstile-slot=""></div>
+<button class="btn primary submit-report" type="submit">Submit private report</button>
+<p aria-live="polite" class="form-status muted small" data-form-status="" role="status">Your story is not stored on this device. Only a receipt is saved after successful private delivery.</p>
+<p class="muted small">By submitting, you acknowledge the <a class="inline-link" href="privacy.html">privacy process</a> and understand this is an educational intake tool, not legal advice.</p>
+<input name="turnstileToken" type="hidden" value=""/>
+</form>
+</div>
+<aside class="intake-side">
+<section class="glass panel side-card">
+<p class="eyebrow">Regulator route</p>
+<h3>Find the likely starting point.</h3>
+<label>Issue<select data-issues="" id="wizardIssue"></select></label>
+<p class="route-output" id="wizardOutput">Choose an issue to see a likely regulator route.</p>
+</section>
+<section class="glass panel side-card">
+<p class="eyebrow">Declaration support</p>
+<h3>Your choice stays separate.</h3>
+<p class="muted">Submitting a report does not automatically make it public and does not enroll you in media, attorney, support, or declaration contact. Those permissions are optional and separately recorded.</p>
+</section>
+<section class="glass panel side-card">
+<p class="eyebrow">Submission receipts</p>
+<h3>Safe metadata on this device.</h3>
+<div id="localReports"></div>
+<p class="muted small">Receipts contain report IDs and non-sensitive metadata only, not your story, email, or documents.</p>
+</section>
+</aside>
+</div>
+</section>
+<section class="section resource-callout">
+<div class="wrap glass resource-callout-inner">
+<div>
+<p class="eyebrow">Credit card agreements</p>
+<h2>Need the card agreement behind your account?</h2>
+<p>Search the CFPB database of issuer-submitted credit card agreements, including current and archived collections.</p>
+</div>
+<a class="btn secondary strong-button" href="https://www.consumerfinance.gov/credit-cards/agreements/" rel="noopener noreferrer" target="_blank">Search CFPB agreements</a>
+</div>
+</section>
 </main>
-
 <footer class="footer mega-footer">
-  <div class="wrap footer-grid">
-    <div class="footer-brand">
-      <a class="brand" href="index.html">
-        <img src="assets/logo.svg" width="42" height="42" alt="">
-        <span class="brand-copy"><strong>Bank Harm Registry</strong><small>Consumer evidence intelligence</small></span>
-      </a>
-      <p>Public-source research, private evidence organization, and consent-based support tools. Educational information only, not legal advice.</p>
-    </div>
-
-    <div class="footer-col">
-      <strong>Consumer complaints</strong>
-      <a href="https://www.consumerfinance.gov/complaint/" target="_blank" rel="noopener noreferrer">CFPB complaint</a>
-      <a href="https://www.helpwithmybank.gov/" target="_blank" rel="noopener noreferrer">OCC HelpWithMyBank</a>
-      <a href="https://www.fdic.gov/consumer-resource-center" target="_blank" rel="noopener noreferrer">FDIC consumer center</a>
-      <a href="https://www.federalreserveconsumerhelp.gov/" target="_blank" rel="noopener noreferrer">Federal Reserve Consumer Help</a>
-      <a href="https://mycreditunion.gov/consumer-assistance-center" target="_blank" rel="noopener noreferrer">NCUA assistance</a>
-    </div>
-
-    <div class="footer-col">
-      <strong>Regulators & enforcement</strong>
-      <a href="https://reportfraud.ftc.gov/" target="_blank" rel="noopener noreferrer">FTC ReportFraud</a>
-      <a href="https://www.sec.gov/submit-tip-or-complaint" target="_blank" rel="noopener noreferrer">SEC complaint / tip</a>
-      <a href="https://www.finra.org/investors/need-help/file-a-complaint" target="_blank" rel="noopener noreferrer">FINRA complaint</a>
-      <a href="https://www.justice.gov/fraud" target="_blank" rel="noopener noreferrer">DOJ fraud resources</a>
-      <a href="https://www.usa.gov/state-attorney-general" target="_blank" rel="noopener noreferrer">State attorneys general</a>
-    </div>
-
-    <div class="footer-col">
-      <strong>Records & reference</strong>
-      <a href="https://www.consumerfinance.gov/credit-cards/agreements/" target="_blank" rel="noopener noreferrer">Credit card agreements</a>
-      <a href="https://banks.data.fdic.gov/bankfind-suite/bankfind" target="_blank" rel="noopener noreferrer">FDIC BankFind</a>
-      <a href="https://www.ffiec.gov/npw" target="_blank" rel="noopener noreferrer">FFIEC regulator lookup</a>
-      <a href="https://www.irs.gov/identity-theft-fraud-scams" target="_blank" rel="noopener noreferrer">IRS fraud / identity theft</a>
-      <a href="https://en.wikipedia.org/wiki/Bank_regulation_in_the_United_States" target="_blank" rel="noopener noreferrer">General reference</a>
-    </div>
-
-    <div class="footer-col">
-      <strong>Bank Harm Registry</strong>
-      <a href="resources.html">Official resources</a>
-      <a href="registry.html">Registry</a>
-      <a href="volunteer-expert-support.html">Volunteer support</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="disclaimer.html">Disclaimer</a>
-    </div>
-  </div>
-  <div class="wrap footer-bottom">© 2026 Bank Harm Registry. No public story is published without consent, redaction, and review.</div>
+<div class="wrap footer-grid">
+<div class="footer-brand">
+<a class="brand" href="index.html">
+<img alt="" height="42" src="assets/logo.svg" width="42"/>
+<span class="brand-copy"><strong>Bank Harm Registry</strong><small>Consumer evidence intelligence</small></span>
+</a>
+<p>Public-source research, private evidence organization, and consent-based support tools. Educational information only, not legal advice.</p>
+</div>
+<div class="footer-col">
+<strong>Consumer complaints</strong>
+<a href="https://www.consumerfinance.gov/complaint/" rel="noopener noreferrer" target="_blank">CFPB complaint</a>
+<a href="https://www.helpwithmybank.gov/" rel="noopener noreferrer" target="_blank">OCC HelpWithMyBank</a>
+<a href="https://www.fdic.gov/consumer-resource-center" rel="noopener noreferrer" target="_blank">FDIC consumer center</a>
+<a href="https://www.federalreserveconsumerhelp.gov/" rel="noopener noreferrer" target="_blank">Federal Reserve Consumer Help</a>
+<a href="https://mycreditunion.gov/consumer-assistance-center" rel="noopener noreferrer" target="_blank">NCUA assistance</a>
+</div>
+<div class="footer-col">
+<strong>Regulators &amp; enforcement</strong>
+<a href="https://reportfraud.ftc.gov/" rel="noopener noreferrer" target="_blank">FTC ReportFraud</a>
+<a href="https://www.sec.gov/submit-tip-or-complaint" rel="noopener noreferrer" target="_blank">SEC complaint / tip</a>
+<a href="https://www.finra.org/investors/need-help/file-a-complaint" rel="noopener noreferrer" target="_blank">FINRA complaint</a>
+<a href="https://www.justice.gov/fraud" rel="noopener noreferrer" target="_blank">DOJ fraud resources</a>
+<a href="https://www.usa.gov/state-attorney-general" rel="noopener noreferrer" target="_blank">State attorneys general</a>
+</div>
+<div class="footer-col">
+<strong>Records &amp; reference</strong>
+<a href="https://www.consumerfinance.gov/credit-cards/agreements/" rel="noopener noreferrer" target="_blank">Credit card agreements</a>
+<a href="https://banks.data.fdic.gov/bankfind-suite/bankfind" rel="noopener noreferrer" target="_blank">FDIC BankFind</a>
+<a href="https://www.ffiec.gov/npw" rel="noopener noreferrer" target="_blank">FFIEC regulator lookup</a>
+<a href="https://www.irs.gov/identity-theft-fraud-scams" rel="noopener noreferrer" target="_blank">IRS fraud / identity theft</a>
+<a href="https://en.wikipedia.org/wiki/Bank_regulation_in_the_United_States" rel="noopener noreferrer" target="_blank">General reference</a>
+</div>
+<div class="footer-col">
+<strong>Bank Harm Registry</strong>
+<a href="resources.html">Official resources</a>
+<a href="registry.html">Registry</a>
+<a href="volunteer-expert-support.html">Volunteer support</a>
+<a href="privacy.html">Privacy</a>
+<a href="terms.html">Terms</a>
+<a href="disclaimer.html">Disclaimer</a>
+</div>
+</div>
+<div class="wrap footer-bottom">© 2026 Bank Harm Registry. No public story is published without consent, redaction, and review.</div>
 </footer>
-
-<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-<script defer src="site-config.js"></script>
-<script defer src="script.js"></script>
-<script defer src="public-record-search.js"></script>
-<script defer src="globe.js"></script>
-</body>
+<div aria-atomic="true" aria-live="polite" class="toast" id="toast" role="status"></div>
+<script defer="" src="site-config.js"></script>
+<script defer="" src="script.js"></script>
+<script defer="" src="public-record-search.js"></script>
+<script defer="" src="globe.js"></script>
+<script defer="" src="complaint-marquee.js"></script>
+<script defer="" src="cfpb-explorer.js"></script></body>
 </html>

@@ -323,3 +323,957 @@ button:disabled,.btn[aria-disabled="true"]{opacity:.6;cursor:not-allowed;transfo
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
+
+
+/* ===== Patch 04: atlas globe + complaint signal marquee ===== */
+.atlas-globe{
+  background:
+    radial-gradient(circle at 72% 18%,rgba(54,123,159,.08),transparent 30%),
+    linear-gradient(180deg,#fbfcfd 0%,#f2f6f8 100%);
+  border-color:rgba(194,214,226,.72);
+  box-shadow:0 28px 80px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.95);
+}
+.atlas-globe::before{
+  background:
+    linear-gradient(rgba(38,72,96,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(38,72,96,.025) 1px,transparent 1px);
+  background-size:34px 34px;
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.72),transparent 88%);
+}
+.atlas-globe .globe-heading{
+  color:#607589;
+}
+.atlas-globe .globe-heading>span:last-child{
+  color:#7e8e9c;
+}
+.atlas-globe .status-dot{
+  background:#0b87aa;
+  box-shadow:0 0 0 5px rgba(11,135,170,.09),0 0 18px rgba(11,135,170,.24);
+}
+.atlas-globe .globe-legend span{
+  background:rgba(255,255,255,.7);
+  border-color:rgba(49,80,103,.12);
+  color:#557086;
+}
+.atlas-globe #bhrGlobe{
+  filter:drop-shadow(0 20px 38px rgba(39,83,111,.09));
+}
+
+.complaint-section{
+  overflow:hidden;
+  padding-top:76px;
+  padding-bottom:86px;
+}
+.complaint-layout{
+  display:grid;
+  grid-template-columns:minmax(280px,.72fr) minmax(520px,1.28fr);
+  gap:48px;
+  align-items:center;
+  min-width:0;
+}
+.complaint-copy{
+  min-width:0;
+}
+.complaint-copy .section-copy{
+  margin-bottom:18px;
+}
+.complaint-marquee-shell{
+  position:relative;
+  height:520px;
+  min-width:0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(52,162,205,.08),transparent 44%),
+    linear-gradient(180deg,rgba(10,18,29,.88),rgba(6,12,20,.9));
+  box-shadow:var(--shadow);
+  perspective:900px;
+}
+.complaint-perspective{
+  position:absolute;
+  inset:-90px -70px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  transform:translate3d(-12px,0,-110px) rotateX(10deg) rotateY(-8deg) rotateZ(4deg);
+  transform-style:preserve-3d;
+}
+.complaint-lane{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  min-width:0;
+  animation:bhr-complaint-marquee 46s linear infinite;
+  will-change:transform;
+}
+.complaint-lane-reverse{
+  animation-direction:reverse;
+}
+.complaint-marquee-shell:hover .complaint-lane,
+.complaint-marquee-shell:focus-within .complaint-lane{
+  animation-play-state:paused;
+}
+.complaint-lane-group{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.complaint-card{
+  display:block;
+  min-width:0;
+  padding:16px;
+  border:1px solid rgba(197,222,239,.12);
+  border-radius:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.035));
+  box-shadow:0 12px 34px rgba(0,0,0,.18);
+  backdrop-filter:blur(14px);
+}
+.complaint-card:focus-visible{
+  outline:2px solid var(--cyan);
+  outline-offset:2px;
+}
+.complaint-card-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  align-items:center;
+  margin-bottom:12px;
+}
+.complaint-source-badge{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:4px 8px;
+  border-radius:999px;
+  background:rgba(114,223,245,.10);
+  border:1px solid rgba(114,223,245,.18);
+  color:#a8edfb;
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+.complaint-id{
+  color:#6d8296;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.66rem;
+  white-space:nowrap;
+}
+.complaint-card h3{
+  margin:0;
+  font-size:1rem;
+  line-height:1.22;
+  letter-spacing:-.02em;
+  overflow-wrap:anywhere;
+}
+.complaint-issue{
+  margin:8px 0 12px;
+  color:#c2cfdb;
+  font-size:.82rem;
+  line-height:1.45;
+}
+.complaint-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:12px;
+}
+.complaint-meta span{
+  min-width:0;
+  padding:5px 7px;
+  border-radius:8px;
+  background:rgba(255,255,255,.035);
+  color:#8296a8;
+  font-size:.66rem;
+  overflow-wrap:anywhere;
+}
+.complaint-response{
+  display:grid;
+  gap:3px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.065);
+}
+.complaint-response span{
+  color:#657a8f;
+  font-size:.65rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+.complaint-response strong{
+  color:#c7d4df;
+  font-size:.73rem;
+  line-height:1.35;
+  font-weight:700;
+}
+.complaint-card-fallback{
+  margin:14px;
+}
+.complaint-fade{
+  position:absolute;
+  left:0;
+  right:0;
+  z-index:3;
+  pointer-events:none;
+  height:120px;
+}
+.complaint-fade-top{
+  top:0;
+  background:linear-gradient(to bottom,#08101a 4%,rgba(8,16,26,.9) 26%,transparent 100%);
+}
+.complaint-fade-bottom{
+  bottom:0;
+  background:linear-gradient(to top,#07101a 4%,rgba(7,16,26,.9) 26%,transparent 100%);
+}
+.complaint-note{
+  grid-column:1/-1;
+  margin:0;
+  padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.06);
+  color:#6f8294;
+  font-size:.74rem;
+  line-height:1.55;
+}
+
+@keyframes bhr-complaint-marquee{
+  from{transform:translateY(0)}
+  to{transform:translateY(calc(-50% - 7px))}
+}
+
+@media(max-width:980px){
+  .complaint-layout{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+  .complaint-copy{
+    max-width:760px;
+  }
+  .complaint-marquee-shell{
+    height:480px;
+  }
+}
+@media(max-width:640px){
+  .atlas-globe .globe-heading{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:7px;
+  }
+  .atlas-globe .globe-heading>span:last-child{
+    font-size:.65rem;
+  }
+  .atlas-globe .globe-legend{
+    grid-template-columns:1fr;
+  }
+  .atlas-globe .globe-legend span{
+    min-height:34px;
+  }
+  .complaint-section{
+    padding-top:58px;
+    padding-bottom:64px;
+  }
+  .complaint-marquee-shell{
+    height:430px;
+    border-radius:20px;
+  }
+  .complaint-perspective{
+    inset:-68px -22px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    transform:translate3d(-8px,0,-70px) rotateX(7deg) rotateY(-6deg) rotateZ(3deg);
+  }
+  .complaint-lane:nth-child(3){
+    display:none;
+  }
+  .complaint-card{
+    padding:13px;
+    border-radius:14px;
+  }
+  .complaint-card h3{
+    font-size:.88rem;
+  }
+  .complaint-issue{
+    font-size:.74rem;
+  }
+  .complaint-note{
+    font-size:.7rem;
+  }
+}
+@media(max-width:390px){
+  .complaint-perspective{
+    grid-template-columns:1fr;
+    inset:-56px 24px;
+    transform:none;
+  }
+  .complaint-lane:nth-child(2),
+  .complaint-lane:nth-child(3){
+    display:none;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .complaint-lane{
+    animation:none;
+  }
+}
+
+.section[id]{scroll-margin-top:96px}
+
+
+/* ===== Continuous candidate R4: CFPB complaint wall =====
+   Visual reference: CFPB complaint-detail portal structure.
+   This is a source preview, not an official CFPB document or logo. */
+:root{
+  --cfpb-green:#20aa3f;
+  --cfpb-green-soft:#e2efd8;
+  --cfpb-ink:#101820;
+  --cfpb-gray:#5a5d61;
+  --cfpb-rule:#d7dadd;
+  --cfpb-paper:#fbfcfa;
+}
+
+/* Make the 21st.dev-inspired complaint wall a complete, filled visual on every viewport. */
+.complaint-layout{
+  align-items:center;
+}
+.complaint-marquee-shell{
+  width:100%;
+  height:auto;
+  min-height:500px;
+  aspect-ratio:1.18 / 1;
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid rgba(194,225,255,.15);
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 50% 44%,rgba(72,174,209,.11),transparent 44%),
+    linear-gradient(180deg,#0b1520 0%,#07101a 100%);
+  box-shadow:0 28px 74px rgba(0,0,0,.30);
+  perspective:1000px;
+}
+.complaint-perspective{
+  position:absolute;
+  inset:-22% -16% -20%;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(190px,1fr));
+  gap:12px;
+  transform:translate3d(-2%,0,-105px) rotateX(12deg) rotateY(-10deg) rotateZ(5deg);
+  transform-style:preserve-3d;
+}
+.complaint-lane{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  min-width:0;
+  animation:bhr-complaint-marquee 58s linear infinite;
+  will-change:transform;
+}
+.complaint-lane:nth-child(1){animation-delay:-8s}
+.complaint-lane:nth-child(2){animation-direction:reverse;animation-delay:-21s}
+.complaint-lane:nth-child(3){animation-delay:-34s}
+.complaint-lane-group{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.complaint-marquee-shell:hover .complaint-lane,
+.complaint-marquee-shell:focus-within .complaint-lane{
+  animation-play-state:paused;
+}
+
+/* CFPB-inspired paper complaint card. Plain-text source identifier avoids implying official endorsement. */
+.cfpb-paper-card{
+  min-width:0;
+  padding:13px 14px 12px;
+  border:1px solid rgba(16,24,32,.15);
+  border-radius:9px;
+  background:linear-gradient(180deg,#fff 0%,var(--cfpb-paper) 100%);
+  color:var(--cfpb-ink);
+  box-shadow:0 12px 28px rgba(0,0,0,.18);
+  backdrop-filter:none;
+}
+.cfpb-paper-card:focus-visible{
+  outline:3px solid var(--cfpb-green);
+  outline-offset:3px;
+}
+.cfpb-paper-source{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+.cfpb-paper-mark{
+  flex:0 0 auto;
+  color:var(--cfpb-green);
+  font-family:"Plus Jakarta Sans","Inter",sans-serif;
+  font-size:1rem;
+  font-weight:800;
+  letter-spacing:-.04em;
+  line-height:1;
+}
+.cfpb-paper-source-name{
+  min-width:0;
+  color:var(--cfpb-gray);
+  font-size:.58rem;
+  font-weight:650;
+  line-height:1.12;
+}
+.cfpb-paper-rule{
+  height:3px;
+  margin:9px 0 10px;
+  background:var(--cfpb-green);
+}
+.cfpb-paper-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:8px;
+  margin-bottom:9px;
+}
+.cfpb-paper-complaint{
+  display:grid;
+  gap:1px;
+  min-width:0;
+}
+.cfpb-paper-complaint span,
+.cfpb-paper-field span,
+.cfpb-paper-response span{
+  color:#50575d;
+  font-size:.53rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.cfpb-paper-complaint strong{
+  color:var(--cfpb-ink);
+  font-size:.68rem;
+  line-height:1.1;
+  overflow-wrap:anywhere;
+}
+.cfpb-paper-status{
+  flex:0 0 auto;
+  padding:3px 5px;
+  border:1px solid #cad3d7;
+  border-radius:999px;
+  background:#f5f7f7;
+  color:#3e474d;
+  font-size:.5rem;
+  font-weight:800;
+  white-space:nowrap;
+}
+.cfpb-paper-card h3{
+  margin:0 0 9px;
+  color:var(--cfpb-ink);
+  font-family:"Inter",sans-serif;
+  font-size:.82rem;
+  font-weight:750;
+  letter-spacing:-.018em;
+  line-height:1.2;
+  overflow-wrap:anywhere;
+}
+.cfpb-paper-fields{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px 10px;
+  padding:9px 0;
+  border-top:1px solid var(--cfpb-rule);
+  border-bottom:1px solid var(--cfpb-rule);
+}
+.cfpb-paper-field{
+  display:grid;
+  gap:2px;
+  min-width:0;
+}
+.cfpb-paper-field strong{
+  color:#252a2f;
+  font-size:.61rem;
+  font-weight:650;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+.cfpb-paper-response{
+  display:grid;
+  gap:3px;
+  padding-top:9px;
+}
+.cfpb-paper-response strong{
+  color:#252a2f;
+  font-size:.62rem;
+  line-height:1.28;
+  font-weight:700;
+  overflow-wrap:anywhere;
+}
+.cfpb-paper-footer{
+  margin-top:9px;
+  padding-top:7px;
+  border-top:1px solid var(--cfpb-rule);
+  color:#697176;
+  font-size:.5rem;
+  line-height:1.25;
+}
+.cfpb-paper-fallback-copy{
+  color:#394149;
+  font-size:.68rem;
+  line-height:1.4;
+}
+.cfpb-paper-link{
+  display:inline-block;
+  margin-top:8px;
+  color:#006c3b;
+  font-size:.65rem;
+  font-weight:800;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.complaint-fade{
+  height:18%;
+}
+.complaint-fade-top{
+  background:linear-gradient(to bottom,#09131e 5%,rgba(9,19,30,.74) 35%,transparent 100%);
+}
+.complaint-fade-bottom{
+  background:linear-gradient(to top,#07101a 5%,rgba(7,16,26,.76) 35%,transparent 100%);
+}
+@keyframes bhr-complaint-marquee{
+  from{transform:translateY(0)}
+  to{transform:translateY(calc(-33.333% - 8px))}
+}
+
+/* Tablet: copy becomes the intro, complaint wall remains a complete visual below it. */
+@media(max-width:980px){
+  .complaint-layout{
+    grid-template-columns:1fr;
+    gap:26px;
+  }
+  .complaint-copy{
+    max-width:720px;
+  }
+  .complaint-marquee-shell{
+    width:min(100%,760px);
+    min-height:0;
+    aspect-ratio:1.22 / 1;
+    justify-self:center;
+  }
+}
+
+/* Phone: keep ALL THREE lanes visible. Never collapse to a single card column. */
+@media(max-width:640px){
+  .complaint-section{
+    padding-top:54px;
+    padding-bottom:62px;
+    overflow:clip;
+  }
+  .complaint-layout{
+    gap:22px;
+  }
+  .complaint-copy h2{
+    max-width:11ch;
+  }
+  .complaint-marquee-shell{
+    width:100%;
+    height:auto;
+    min-height:0;
+    aspect-ratio:1 / 1;
+    border-radius:20px;
+  }
+  .complaint-perspective{
+    inset:-24% -44% -22%;
+    grid-template-columns:repeat(3,minmax(150px,1fr));
+    gap:9px;
+    transform:translate3d(-1%,0,-82px) rotateX(9deg) rotateY(-10deg) rotateZ(4deg);
+  }
+  .complaint-lane,
+  .complaint-lane:nth-child(2),
+  .complaint-lane:nth-child(3){
+    display:flex;
+  }
+  .complaint-lane,
+  .complaint-lane-group{
+    gap:9px;
+  }
+  .cfpb-paper-card{
+    padding:10px 10px 9px;
+    border-radius:7px;
+  }
+  .cfpb-paper-mark{font-size:.8rem}
+  .cfpb-paper-source-name{font-size:.47rem}
+  .cfpb-paper-rule{height:2px;margin:7px 0 8px}
+  .cfpb-paper-card h3{font-size:.67rem;margin-bottom:7px}
+  .cfpb-paper-head{margin-bottom:7px}
+  .cfpb-paper-complaint span,
+  .cfpb-paper-field span,
+  .cfpb-paper-response span{font-size:.43rem}
+  .cfpb-paper-complaint strong{font-size:.54rem}
+  .cfpb-paper-status{font-size:.4rem;padding:2px 4px}
+  .cfpb-paper-fields{gap:6px 7px;padding:7px 0}
+  .cfpb-paper-field strong{font-size:.49rem}
+  .cfpb-paper-response{padding-top:7px}
+  .cfpb-paper-response strong{font-size:.5rem}
+  .cfpb-paper-footer{font-size:.39rem;margin-top:7px;padding-top:6px}
+  .complaint-note{font-size:.68rem}
+}
+
+/* Even at 360px, preserve the three-lane visual without horizontal page overflow. */
+@media(max-width:390px){
+  .complaint-perspective{
+    inset:-23% -52% -22%;
+    grid-template-columns:repeat(3,minmax(142px,1fr));
+    transform:translate3d(0,0,-78px) rotateX(8deg) rotateY(-9deg) rotateZ(4deg);
+  }
+  .complaint-lane,
+  .complaint-lane:nth-child(2),
+  .complaint-lane:nth-child(3){
+    display:flex;
+  }
+}
+
+/* Mobile CFPB explorer must remain in the document flow and never disappear behind the sticky header. */
+.cfpb-explorer,
+#consumer-signals{
+  scroll-margin-top:112px;
+}
+@media(max-width:640px){
+  .cfpb-explorer{
+    display:block;
+    padding-top:42px;
+  }
+  .cfpb-explorer .wrap,
+  .cfpb-console,
+  .cfpb-filter-form,
+  .cfpb-results{
+    min-width:0;
+    width:100%;
+  }
+  .cfpb-console{
+    overflow:hidden;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .complaint-lane{
+    animation:none !important;
+    transform:translateY(0) !important;
+  }
+}
+
+
+/* ===== Live CFPB explorer layout ===== */
+.cfpb-explorer{
+  display:block;
+  padding-top:40px;
+  padding-bottom:76px;
+}
+.explorer-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:28px;
+  align-items:end;
+  max-width:none;
+}
+.explorer-head>div:first-child{
+  max-width:760px;
+}
+.explorer-source-note{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  justify-self:end;
+  margin-bottom:4px;
+  padding:9px 12px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  color:#8ea3b6;
+  background:rgba(255,255,255,.025);
+  font-size:.76rem;
+  white-space:nowrap;
+}
+.cfpb-console{
+  width:100%;
+  min-width:0;
+  margin-top:24px;
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(13,23,35,.90),rgba(7,14,22,.86));
+  box-shadow:0 22px 60px rgba(0,0,0,.24);
+  overflow:hidden;
+}
+.cfpb-filter-form{
+  display:grid;
+  gap:12px;
+  min-width:0;
+}
+.cfpb-filter-primary{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr) auto;
+  gap:10px;
+  align-items:end;
+  min-width:0;
+}
+.cfpb-filter-primary label,
+.cfpb-filter-advanced-grid label{
+  display:grid;
+  gap:6px;
+  min-width:0;
+  color:#aab8c7;
+  font-size:.76rem;
+  font-weight:700;
+}
+.cfpb-filter-primary input,
+.cfpb-filter-advanced-grid input{
+  width:100%;
+  min-width:0;
+  height:48px;
+  margin:0;
+  padding:0 14px;
+  border:1px solid rgba(194,225,255,.14);
+  border-radius:12px;
+  background:#07101a;
+  color:#eef7fb;
+}
+.cfpb-filter-primary input::placeholder,
+.cfpb-filter-advanced-grid input::placeholder{
+  color:#71879a;
+}
+.cfpb-filter-primary .btn{
+  min-width:168px;
+  min-height:48px;
+}
+.cfpb-advanced{
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,.065);
+}
+.cfpb-advanced summary{
+  display:inline-flex;
+  align-items:center;
+  min-height:38px;
+  color:#8ea3b6;
+  font-size:.8rem;
+  font-weight:700;
+  cursor:pointer;
+}
+.cfpb-filter-advanced-grid{
+  display:grid;
+  grid-template-columns:1.2fr .45fr .7fr .7fr;
+  gap:10px;
+  margin-top:8px;
+  min-width:0;
+}
+.cfpb-result-summary{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin-top:18px;
+}
+.cfpb-result-summary>div{
+  min-width:0;
+  padding:14px 15px;
+  border:1px solid rgba(194,225,255,.10);
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+}
+.cfpb-summary-label{
+  display:block;
+  margin-bottom:5px;
+  color:#758da2;
+  font-size:.69rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.cfpb-result-summary strong{
+  display:block;
+  color:#f0f6fa;
+  font-family:"Plus Jakarta Sans","Inter",sans-serif;
+  font-size:1.1rem;
+  line-height:1.22;
+  overflow-wrap:anywhere;
+}
+.cfpb-results{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:12px;
+  min-width:0;
+}
+.cfpb-result-card{
+  min-width:0;
+  padding:14px;
+  border:1px solid rgba(194,225,255,.10);
+  border-radius:14px;
+  background:rgba(255,255,255,.023);
+}
+.cfpb-result-card h3{
+  margin:0;
+  color:#eef6fb;
+  font-family:"Inter",sans-serif;
+  font-size:.84rem;
+  font-weight:750;
+  line-height:1.28;
+  letter-spacing:-.015em;
+  overflow-wrap:anywhere;
+}
+.cfpb-result-card>p{
+  margin:7px 0 9px;
+  color:#95a7b8;
+  font-size:.77rem;
+  line-height:1.45;
+}
+.cfpb-result-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+}
+.cfpb-result-meta span{
+  min-width:0;
+  padding:5px 7px;
+  border:1px solid rgba(194,225,255,.08);
+  border-radius:999px;
+  color:#7890a4;
+  background:rgba(255,255,255,.018);
+  font-size:.64rem;
+  line-height:1.15;
+  overflow-wrap:anywhere;
+}
+.cfpb-disclaimer{
+  margin:14px 0 0;
+  color:#70869a;
+  font-size:.72rem;
+  line-height:1.5;
+}
+
+@media(max-width:980px){
+  .explorer-head{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .explorer-source-note{
+    justify-self:start;
+  }
+  .cfpb-filter-primary{
+    grid-template-columns:1fr 1fr;
+  }
+  .cfpb-filter-primary .btn{
+    grid-column:1/-1;
+    width:100%;
+  }
+  .cfpb-filter-advanced-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .cfpb-results{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+@media(max-width:640px){
+  .cfpb-explorer{
+    padding-top:34px;
+    padding-bottom:58px;
+  }
+  .explorer-head{
+    gap:10px;
+  }
+  .explorer-head h2{
+    max-width:11ch;
+    font-size:clamp(2rem,9vw,2.7rem);
+    line-height:1.04;
+  }
+  .explorer-source-note{
+    white-space:normal;
+    border-radius:12px;
+    font-size:.72rem;
+  }
+  .cfpb-console{
+    padding:15px;
+    border-radius:18px;
+  }
+  .cfpb-filter-primary,
+  .cfpb-filter-advanced-grid,
+  .cfpb-result-summary,
+  .cfpb-results{
+    grid-template-columns:1fr;
+  }
+  .cfpb-filter-primary .btn{
+    grid-column:auto;
+    width:100%;
+    min-width:0;
+    min-height:50px;
+  }
+  .cfpb-filter-primary input,
+  .cfpb-filter-advanced-grid input{
+    height:48px;
+  }
+  .cfpb-result-card{
+    padding:13px;
+  }
+  .cfpb-result-card:nth-child(n+5){
+    display:none;
+  }
+}
+
+
+/* ===== Continuous candidate R4: global polish preserved from prior review ===== */
+:root{
+  --button-glow:0 10px 28px rgba(74,197,229,.12);
+  --button-glow-hover:0 14px 36px rgba(74,197,229,.18);
+  --card-shadow-consistent:0 18px 48px rgba(0,0,0,.22);
+}
+body{
+  font-family:"Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+h1,h2,h3,.brand-copy strong{
+  font-family:"Plus Jakarta Sans","Inter",ui-sans-serif,system-ui,sans-serif;
+}
+.navin{
+  display:grid;
+  grid-template-columns:minmax(250px,1fr) auto minmax(150px,1fr);
+  align-items:center;
+  gap:22px;
+}
+.navin .brand{justify-self:start}
+.navin .nav-links,
+.navin .links{
+  justify-self:center;
+  margin-left:0;
+}
+.navin .nav-action{justify-self:end;margin-left:0}
+
+/* Every actionable button gets the same elevation logic. */
+.btn,
+button.btn,
+a.btn,
+.search-submit,
+.resource-action,
+.strong-button{
+  box-shadow:var(--button-glow);
+}
+.btn:hover,
+button.btn:hover,
+a.btn:hover,
+.search-submit:hover,
+.resource-action:hover,
+.strong-button:hover{
+  box-shadow:var(--button-glow-hover);
+}
+
+/* Cards use one shadow language; meaning is conveyed with text/borders, not random orange/navy shadows. */
+.card,.panel,.resource-card,.process-card,.context-panel,.compact-panel,.firewall-card,.cfpb-console,.tier{
+  box-shadow:var(--card-shadow-consistent);
+}
+
+@media(max-width:980px){
+  .navin{
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:10px;
+  }
+  .navin .nav-links,
+  .navin .links{
+    display:none;
+  }
+  .navin .nav-action{
+    grid-column:2;
+  }
+}
+@media(max-width:640px){
+  .navin{
+    grid-template-columns:minmax(0,1fr) auto;
+    padding:8px 10px;
+  }
+}
