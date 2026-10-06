@@ -104,21 +104,21 @@
         </div>
       </div>
 
-      <section class="globe-shell glass" data-globe-stage aria-label="Interactive public-source intelligence globe">
+      <section class="globe-shell atlas-globe" data-globe-stage aria-label="Interactive public-source network globe">
         <div class="globe-heading">
           <div>
             <span class="status-dot" aria-hidden="true"></span>
-            <span>Connected public sources</span>
+            <span>Public-source network</span>
           </div>
-          <span>Drag to rotate</span>
+          <span>Auto-rotates east-west · drag to explore</span>
         </div>
         <div class="globe-stage">
-          <canvas id="bhrGlobe" width="760" height="760" aria-label="Interactive globe. Drag horizontally or vertically to rotate."></canvas>
+          <canvas id="bhrGlobe" width="760" height="760" aria-label="Interactive dotted globe. It rotates left to right automatically. Drag to explore other angles."></canvas>
         </div>
-        <div class="globe-legend" aria-label="Source categories">
+        <div class="globe-legend" aria-label="Network categories">
           <span>Complaint data</span>
-          <span>Regulator actions</span>
-          <span>Public records</span>
+          <span>Regulator records</span>
+          <span>Courts + enforcement</span>
         </div>
       </section>
     </div>
@@ -130,6 +130,28 @@
       <article><strong>OCC + FDIC</strong><span>Bank oversight</span></article>
       <article><strong>Federal Reserve</strong><span>Enforcement actions</span></article>
       <article><strong>FTC + DOJ</strong><span>Consumer protection</span></article>
+    </div>
+  </section>
+
+
+  <section class="section complaint-section" id="consumer-signals">
+    <div class="wrap complaint-layout">
+      <div class="complaint-copy">
+        <p class="eyebrow">Public complaint signals</p>
+        <h2>See what consumers are reporting to the CFPB.</h2>
+        <p class="section-copy">A live visual stream of recent CFPB complaint metadata. These are consumer-submitted complaints, not verified findings or Bank Harm Registry claims.</p>
+        <a class="text-action" href="https://www.consumerfinance.gov/data-research/consumer-complaints/" target="_blank" rel="noopener noreferrer">Open the CFPB database</a>
+      </div>
+      <div class="complaint-marquee-shell" data-complaint-marquee aria-label="Recent CFPB complaint metadata">
+        <div class="complaint-perspective">
+          <div class="complaint-lane" data-lane="0"></div>
+          <div class="complaint-lane complaint-lane-reverse" data-lane="1"></div>
+          <div class="complaint-lane" data-lane="2"></div>
+        </div>
+        <div class="complaint-fade complaint-fade-top" aria-hidden="true"></div>
+        <div class="complaint-fade complaint-fade-bottom" aria-hidden="true"></div>
+      </div>
+      <p class="complaint-note">Current CFPB public data includes company, product, issue, state, response and timing fields. Narrative text was removed from the current complaint database in September 2026, so this display does not invent or reconstruct consumer stories.</p>
     </div>
   </section>
 
@@ -326,5 +348,6 @@
 <script defer src="script.js"></script>
 <script defer src="public-record-search.js"></script>
 <script defer src="globe.js"></script>
+<script defer src="complaint-marquee.js"></script>
 </body>
 </html>
