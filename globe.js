@@ -3,78 +3,44 @@
 
   const canvas = document.getElementById('bhrGlobe');
   if (!(canvas instanceof HTMLCanvasElement)) return;
-
   const ctx = canvas.getContext('2d', { alpha: true });
   if (!ctx) return;
 
-  const stage = canvas.closest('[data-globe-stage]');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  let width = 600;
-  let height = 600;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let width = 640;
+  let height = 430;
   let dpr = Math.min(window.devicePixelRatio || 1, 2);
-  let rotation = -0.42;
-  let tilt = -0.14;
+  let rotation = -0.55;
+  let tilt = -0.12;
   let dragging = false;
   let lastX = 0;
   let lastY = 0;
-  let visible = true;
+  let raf = 0;
   let lastTime = performance.now();
 
-  const nodes = [
-    { lat: 28, lon: -95, color: '#79ecff' },
-    { lat: 42, lon: -30, color: '#f0cc79' },
-    { lat: 12, lon: 28, color: '#68d7ff' },
-    { lat: -18, lon: 72, color: '#79ecff' },
-    { lat: -34, lon: -44, color: '#8ff0c2' },
-    { lat: 46, lon: 98, color: '#f0cc79' },
-    { lat: 2, lon: 142, color: '#68d7ff' }
-  ];
-
-  const routes = [
-    [0,1],[1,2],[1,3],[2,4],[3,4],[4,5],[2,6],[6,5]
-  ];
-
-  // Dense Fibonacci sphere, adapted from the portfolio globe.
   const points = [];
-  const count = 920;
+  const pointCount = 1100;
   const golden = Math.PI * (3 - Math.sqrt(5));
-  for (let i = 0; i < count; i += 1) {
-    const y = 1 - (i / (count - 1)) * 2;
-    const radius = Math.sqrt(1 - y * y);
+  for (let i = 0; i < pointCount; i += 1) {
+    const y = 1 - (i / (pointCount - 1)) * 2;
+    const rr = Math.sqrt(Math.max(0, 1 - y * y));
     const theta = golden * i;
-    points.push({
-      x: Math.cos(theta) * radius,
-      y,
-      z: Math.sin(theta) * radius
-    });
+    points.push({ x: Math.cos(theta) * rr, y, z: Math.sin(theta) * rr });
   }
 
-  function resize() {
-    const rect = canvas.getBoundingClientRect();
-    width = Math.max(320, rect.width);
-    height = Math.max(320, rect.height);
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.round(width * dpr);
-    canvas.height = Math.round(height * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  function rotatePoint(point, extraRadius = 1) {
-    const cr = Math.cos(rotation), sr = Math.sin(rotation);
-    const ct = Math.cos(tilt), st = Math.sin(tilt);
-
-    const x1 = point.x * cr - point.z * sr;
-    const z1 = point.x * sr + point.z * cr;
-    const y2 = point.y * ct - z1 * st;
-    const z2 = point.y * st + z1 * ct;
-
-    return {
-      x: x1 * extraRadius,
-      y: y2 * extraRadius,
-      z: z2 * extraRadius
-    };
-  }
+  const nodes = [
+    { lat: 38.9, lon: -77.0 },
+    { lat: 40.7, lon: -74.0 },
+    { lat: 25.8, lon: -80.2 },
+    { lat: 34.0, lon: -118.2 },
+    { lat: 41.9, lon: -87.6 },
+    { lat: 29.7, lon: -95.3 },
+    { lat: 47.6, lon: -122.3 },
+    { lat: 51.5, lon: -0.1 },
+    { lat: 35.7, lon: 139.7 },
+    { lat: -33.9, lon: 151.2 }
+  ];
+  const routes = [[0,1],[0,2],[0,3],[1,4],[2,5],[3,6],[0,7],[7,8],[2,9]];
 
   function latLon(lat, lon) {
     const phi = (90 - lat) * Math.PI / 180;
@@ -86,269 +52,211 @@
     };
   }
 
-  function project(point, radiusScale = 1) {
-    const r = Math.min(width, height) * 0.395;
+  function rotate(point) {
+    const cr = Math.cos(rotation), sr = Math.sin(rotation);
+    const ct = Math.cos(tilt), st = Math.sin(tilt);
+    const x1 = point.x * cr - point.z * sr;
+    const z1 = point.x * sr + point.z * cr;
+    const y2 = point.y * ct - z1 * st;
+    const z2 = point.y * st + z1 * ct;
+    return { x: x1, y: y2, z: z2 };
+  }
+
+  function geometry() {
+    const radius = Math.min(width, height) * (width < 500 ? 0.40 : 0.42);
+    return { cx: width / 2, cy: height / 2 + (width < 500 ? 2 : 6), radius };
+  }
+
+  function project(point, scale = 1) {
+    const p = rotate(point);
+    const { cx, cy, radius } = geometry();
     return {
-      x: width / 2 + point.x * r * radiusScale,
-      y: height / 2 - point.y * r * radiusScale,
-      z: point.z,
-      r
+      x: cx + p.x * radius * scale,
+      y: cy - p.y * radius * scale,
+      z: p.z
     };
   }
 
-  function drawSphere() {
-    const centerX = width / 2;
-    const centerY = height / 2;
-    const radius = Math.min(width, height) * 0.395;
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    width = Math.max(260, rect.width || 640);
+    height = Math.max(260, rect.height || 430);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw(performance.now(), true);
+  }
 
-    const halo = ctx.createRadialGradient(
-      centerX - radius * 0.24,
-      centerY - radius * 0.30,
-      radius * 0.04,
-      centerX,
-      centerY,
-      radius * 1.38
-    );
-    halo.addColorStop(0, 'rgba(94,226,255,.26)');
-    halo.addColorStop(.48, 'rgba(26,120,178,.10)');
-    halo.addColorStop(1, 'rgba(0,10,28,0)');
-    ctx.fillStyle = halo;
+  function drawGlow() {
+    const { cx, cy, radius } = geometry();
+    const glow = ctx.createRadialGradient(cx - radius * .24, cy - radius * .26, radius * .08, cx, cy, radius * 1.12);
+    glow.addColorStop(0, 'rgba(92,226,255,.18)');
+    glow.addColorStop(.42, 'rgba(39,145,184,.09)');
+    glow.addColorStop(.72, 'rgba(11,48,67,.05)');
+    glow.addColorStop(1, 'rgba(4,10,15,0)');
+    ctx.fillStyle = glow;
     ctx.beginPath();
-    ctx.arc(centerX, centerY, radius * 1.32, 0, Math.PI * 2);
+    ctx.arc(cx, cy, radius * 1.08, 0, Math.PI * 2);
     ctx.fill();
 
-    const body = ctx.createRadialGradient(
-      centerX - radius * .18,
-      centerY - radius * .24,
-      radius * .12,
-      centerX,
-      centerY,
-      radius
-    );
-    body.addColorStop(0, 'rgba(33,104,146,.18)');
-    body.addColorStop(.68, 'rgba(7,31,56,.18)');
-    body.addColorStop(.90, 'rgba(3,21,38,.18)');
-    body.addColorStop(1, 'rgba(82,221,255,.36)');
-    ctx.fillStyle = body;
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.strokeStyle = 'rgba(105,227,255,.42)';
+    ctx.strokeStyle = 'rgba(138,226,247,.24)';
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.stroke();
   }
 
-  function drawGrid() {
-    const radius = Math.min(width, height) * 0.395;
-    const cx = width / 2;
-    const cy = height / 2;
+  function drawPoints() {
+    const { cx, cy, radius } = geometry();
+    for (const raw of points) {
+      const p = rotate(raw);
+      if (p.z < -0.12) continue;
+      const depth = Math.max(0, (p.z + 0.12) / 1.12);
+      const size = 0.75 + depth * 1.15;
+      ctx.fillStyle = `rgba(112,224,247,${0.10 + depth * 0.58})`;
+      ctx.beginPath();
+      ctx.arc(cx + p.x * radius, cy - p.y * radius, size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
 
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-    ctx.clip();
-    ctx.lineWidth = .75;
-    ctx.strokeStyle = 'rgba(78,184,230,.12)';
-
+  function drawLatitudeLongitude() {
+    ctx.lineWidth = 0.75;
     for (let lat = -60; lat <= 60; lat += 30) {
       ctx.beginPath();
       let started = false;
       for (let lon = -180; lon <= 180; lon += 4) {
-        const p = rotatePoint(latLon(lat, lon));
-        if (p.z < -.05) { started = false; continue; }
-        const s = project(p);
-        if (!started) { ctx.moveTo(s.x, s.y); started = true; }
-        else ctx.lineTo(s.x, s.y);
+        const p = project(latLon(lat, lon));
+        if (p.z < 0) { started = false; continue; }
+        if (!started) { ctx.moveTo(p.x, p.y); started = true; }
+        else ctx.lineTo(p.x, p.y);
       }
+      ctx.strokeStyle = 'rgba(118,208,233,.055)';
       ctx.stroke();
     }
-
     for (let lon = -150; lon <= 180; lon += 30) {
       ctx.beginPath();
       let started = false;
-      for (let lat = -89; lat <= 89; lat += 3) {
-        const p = rotatePoint(latLon(lat, lon));
-        if (p.z < -.05) { started = false; continue; }
-        const s = project(p);
-        if (!started) { ctx.moveTo(s.x, s.y); started = true; }
-        else ctx.lineTo(s.x, s.y);
+      for (let lat = -88; lat <= 88; lat += 3) {
+        const p = project(latLon(lat, lon));
+        if (p.z < 0) { started = false; continue; }
+        if (!started) { ctx.moveTo(p.x, p.y); started = true; }
+        else ctx.lineTo(p.x, p.y);
       }
+      ctx.strokeStyle = 'rgba(118,208,233,.045)';
       ctx.stroke();
     }
-
-    ctx.restore();
   }
 
-  function drawPoints() {
-    for (const point of points) {
-      const p = rotatePoint(point);
-      if (p.z < -.18) continue;
+  function quadraticPoint(a, c, b, t) {
+    const u = 1 - t;
+    return {
+      x: u*u*a.x + 2*u*t*c.x + t*t*b.x,
+      y: u*u*a.y + 2*u*t*c.y + t*t*b.y
+    };
+  }
 
-      const s = project(p);
-      const alpha = Math.max(.08, (p.z + .2) / 1.2) * .78;
-      const size = .55 + Math.max(0, p.z) * 1.25;
+  function drawRoutes(now) {
+    routes.forEach(([ia, ib], idx) => {
+      const a = project(latLon(nodes[ia].lat, nodes[ia].lon), 1.01);
+      const b = project(latLon(nodes[ib].lat, nodes[ib].lon), 1.01);
+      if (a.z < 0.02 || b.z < 0.02) return;
 
-      ctx.fillStyle = `rgba(104,228,255,${alpha})`;
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const distance = Math.hypot(dx, dy);
+      const mx = (a.x + b.x) / 2;
+      const my = (a.y + b.y) / 2 - Math.min(54, distance * .28);
+
       ctx.beginPath();
-      ctx.arc(s.x, s.y, size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  function sphericalMix(a, b, t) {
-    let x = a.x * (1 - t) + b.x * t;
-    let y = a.y * (1 - t) + b.y * t;
-    let z = a.z * (1 - t) + b.z * t;
-
-    const len = Math.hypot(x, y, z) || 1;
-    x /= len; y /= len; z /= len;
-
-    const lift = 1 + Math.sin(Math.PI * t) * .17;
-    return { x: x * lift, y: y * lift, z: z * lift };
-  }
-
-  function drawRoutes(time) {
-    routes.forEach(([from, to], routeIndex) => {
-      const a = latLon(nodes[from].lat, nodes[from].lon);
-      const b = latLon(nodes[to].lat, nodes[to].lon);
-      const samples = [];
-
-      for (let i = 0; i <= 44; i += 1) {
-        const raw = sphericalMix(a, b, i / 44);
-        const p = rotatePoint(raw);
-        if (p.z > -.12) samples.push(project(p));
-      }
-
-      if (samples.length < 2) return;
-
-      const warm = routeIndex % 4 === 1;
-      ctx.strokeStyle = warm ? 'rgba(240,204,121,.54)' : 'rgba(100,220,255,.48)';
-      ctx.lineWidth = 1.15;
-      ctx.beginPath();
-      samples.forEach((s, i) => i ? ctx.lineTo(s.x, s.y) : ctx.moveTo(s.x, s.y));
+      ctx.moveTo(a.x, a.y);
+      ctx.quadraticCurveTo(mx, my, b.x, b.y);
+      ctx.strokeStyle = 'rgba(120,226,249,.20)';
+      ctx.lineWidth = 1.05;
       ctx.stroke();
 
-      if (!reduceMotion.matches) {
-        const progress = ((time / 2500) + routeIndex * .14) % 1;
-        const pulseIndex = Math.min(samples.length - 1, Math.floor(progress * samples.length));
-        const pulse = samples[pulseIndex];
-        if (pulse) {
-          const gradient = ctx.createRadialGradient(pulse.x, pulse.y, 0, pulse.x, pulse.y, 10);
-          gradient.addColorStop(0, '#ffffff');
-          gradient.addColorStop(.22, warm ? '#f0cc79' : '#79ecff');
-          gradient.addColorStop(1, 'rgba(121,236,255,0)');
-          ctx.fillStyle = gradient;
-          ctx.beginPath();
-          ctx.arc(pulse.x, pulse.y, 10, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-    });
-  }
-
-  function drawNodes(time) {
-    nodes.forEach((node, index) => {
-      const p = rotatePoint(latLon(node.lat, node.lon));
-      if (p.z < -.15) return;
-
-      const s = project(p);
-      const pulse = reduceMotion.matches ? 1 : 1 + Math.sin(time / 480 + index) * .14;
-
-      ctx.shadowColor = node.color;
-      ctx.shadowBlur = 16;
-      ctx.fillStyle = node.color;
+      const t = ((now * 0.00010) + idx * 0.113) % 1;
+      const pulse = quadraticPoint(a, {x:mx,y:my}, b, t);
+      ctx.fillStyle = 'rgba(225,249,255,.92)';
+      ctx.shadowColor = 'rgba(98,222,249,.85)';
+      ctx.shadowBlur = 9;
       ctx.beginPath();
-      ctx.arc(s.x, s.y, 3.8 * pulse, 0, Math.PI * 2);
+      ctx.arc(pulse.x, pulse.y, 2.15, 0, Math.PI * 2);
       ctx.fill();
-
       ctx.shadowBlur = 0;
-      ctx.globalAlpha = .38;
-      ctx.strokeStyle = node.color;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, 8.5 * pulse, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.globalAlpha = 1;
     });
   }
 
-  function frame(time) {
-    const delta = Math.min(40, time - lastTime);
-    lastTime = time;
-
-    if (visible) {
-      if (!dragging && !reduceMotion.matches) rotation += delta * .00011;
-      ctx.clearRect(0, 0, width, height);
-      drawSphere();
-      drawGrid();
-      drawRoutes(time);
-      drawPoints();
-      drawNodes(time);
-    }
-
-    requestAnimationFrame(frame);
+  function drawNodes() {
+    nodes.forEach((n) => {
+      const p = project(latLon(n.lat, n.lon), 1.01);
+      if (p.z < 0.03) return;
+      ctx.fillStyle = 'rgba(133,235,255,.88)';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 2.6, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(133,235,255,.20)';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 7.2, 0, Math.PI * 2);
+      ctx.stroke();
+    });
   }
 
-  function startDrag(event) {
+  function draw(now = performance.now(), staticFrame = false) {
+    ctx.clearRect(0, 0, width, height);
+    drawGlow();
+    drawLatitudeLongitude();
+    drawPoints();
+    drawRoutes(now);
+    drawNodes();
+
+    if (!staticFrame && !dragging && !reduced.matches) {
+      const dt = Math.min(32, now - lastTime);
+      rotation += dt * 0.000085;
+    }
+    lastTime = now;
+
+    if (!staticFrame) raf = requestAnimationFrame(draw);
+  }
+
+  function start() {
+    cancelAnimationFrame(raf);
+    lastTime = performance.now();
+    raf = requestAnimationFrame(draw);
+  }
+
+  canvas.addEventListener('pointerdown', (event) => {
     dragging = true;
     lastX = event.clientX;
     lastY = event.clientY;
     canvas.setPointerCapture?.(event.pointerId);
-  }
-
-  function moveDrag(event) {
-    if (!dragging || reduceMotion.matches) return;
+  });
+  canvas.addEventListener('pointermove', (event) => {
+    if (!dragging) return;
     const dx = event.clientX - lastX;
     const dy = event.clientY - lastY;
-    rotation += dx * .006;
-    tilt = Math.max(-.75, Math.min(.75, tilt + dy * .004));
+    rotation += dx * 0.0065;
+    tilt = Math.max(-1.05, Math.min(1.05, tilt - dy * 0.005));
     lastX = event.clientX;
     lastY = event.clientY;
-  }
-
-  function endDrag(event) {
-    dragging = false;
-    canvas.releasePointerCapture?.(event.pointerId);
-  }
-
-  canvas.addEventListener('pointerdown', startDrag);
-  canvas.addEventListener('pointermove', moveDrag);
-  canvas.addEventListener('pointerup', endDrag);
-  canvas.addEventListener('pointercancel', endDrag);
+    draw(performance.now(), true);
+  });
+  const stop = () => { dragging = false; };
+  canvas.addEventListener('pointerup', stop);
+  canvas.addEventListener('pointercancel', stop);
+  canvas.addEventListener('pointerleave', (event) => {
+    if (event.buttons === 0) dragging = false;
+  });
   canvas.addEventListener('dblclick', () => {
-    rotation = -.42;
-    tilt = -.14;
+    rotation = -0.55;
+    tilt = -0.12;
+    draw(performance.now(), true);
   });
 
+  reduced.addEventListener?.('change', () => draw(performance.now(), true));
   window.addEventListener('resize', resize, { passive: true });
-
-  if ('ResizeObserver' in window) {
-    new ResizeObserver(resize).observe(canvas);
-  }
-
-  if ('IntersectionObserver' in window && stage) {
-    new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-    }, { threshold: .02 }).observe(stage);
-  }
-
-  const searchForm = document.getElementById('institutionSearchForm');
-  const searchInput = document.getElementById('institutionSearch');
-
-  if (searchForm && searchInput) {
-    searchForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const query = searchInput.value.trim();
-      if (!query) {
-        searchInput.focus();
-        return;
-      }
-      window.location.href = `registry.html?q=${encodeURIComponent(query)}`;
-    });
-  }
+  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
 
   resize();
-  requestAnimationFrame(frame);
+  start();
 })();
