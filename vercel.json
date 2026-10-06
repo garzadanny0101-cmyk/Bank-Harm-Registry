@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    { "source": "/class", "destination": "/class/", "permanent": true },
+    { "source": "/class.html", "destination": "/class/", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/class/", "destination": "/class/index.html" }
+  ],
   "functions": {
     "api/*.js": {
       "maxDuration": 10

@@ -1,0 +1,23 @@
+.env
+.env.*
+!.env.example
+.vercel/
+.qa/
+docs/temp/
+node_modules/
+# Original evidence awaiting privacy review. Keep local and do not commit.
+assets/*.jpg
+assets/*.jpeg
+assets/*.png
+assets/*.webp
+assets/*.avif
+assets/WF_Mediation_request_form.jpg
+assets/*.mp4
+assets/*.webm
+assets/Win*
+!assets/Win_EQ-Credit_CFPB_all_Deletions.jpg
+!assets/Win_CFPB_Credit Karma.jpg
+!assets/Win_Testimony_Telegram_CK.jpg
+!assets/portfolio-corner.png
+!assets/portfolio-crest.jpg
+!assets/portfolio-flourish.png

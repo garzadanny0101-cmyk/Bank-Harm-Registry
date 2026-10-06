@@ -1,0 +1,4 @@
+Contact: mailto:garzadanny0101@gmail.com
+Expires: 2027-04-06T00:00:00Z
+Preferred-Languages: en
+Canonical: https://bankharmregistry.org/.well-known/security.txt
