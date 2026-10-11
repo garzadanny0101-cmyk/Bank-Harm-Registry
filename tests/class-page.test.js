@@ -73,6 +73,7 @@ test('page stays static, has no payment API or fabricated Event schema', () => {
   assert(!/<iframe|<form|https:\/\/.*(?:stripe|checkout)/i.test(html));
   assert(!/"@type"\s*:\s*"Event"/.test(html));
   assert.equal((html.match(/<h1[ >]/g) || []).length, 1);
-  assert(html.includes('CLASS + YOUR EMAIL'));
+  assert(html.includes('Cash App note: <strong>Donation</strong>'));
+  assert(!html.includes('CLASS + YOUR EMAIL'));
   assert.equal((html.match(/<li>/g) || []).length, 23); // 7 framework + 13 documents + 3 access steps.
 });
